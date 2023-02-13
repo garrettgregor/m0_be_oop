@@ -17,7 +17,8 @@ end
 
 uni1 = Unicorn.new("Silver Surfer")
 p uni1
-puts uni1.say("Look at me go")
+
+uni1.say("Look at me go")
 
 
 
@@ -40,8 +41,11 @@ class Vampire
   end
 end
 
-dracula = Vampire.new("Dracula", "cat")
-puts dracula.drink
+vamp1 = Vampire.new("Dracula", "cat")
+p vamp1
+
+vamp1.drink
+p vamp1
 
 
 # #  Write a Dragon class
@@ -53,28 +57,27 @@ puts dracula.drink
 
 class Dragon
   attr_reader :is_hungry
-  def initialize(name, rider, color, is_hungry = 4)
+  def initialize(name, rider, color)
     @name = name
     @rider = rider
     @color = color
-    @is_hungry = is_hungry
-    if 
-      is_hungry <= 0; puts "The Dragon is no longer hungry"
-    else
-      puts "The dragon is hungry"
-    end
+    @is_hungry = true
   end
-    
-  def eat
-    eaten = @is_hungry -1
-    return eaten
+  
+  def eat(times_eaten)
+    if times_eaten >= 4 
+      @is_hungry = false 
+    else
+      @is_hungry = true
+    end
   end
 end
 
 dragon1 = Dragon.new("Norbert", "Garrett", "green")
-# I was expecting the code below to modify the dragon1, but it seems that the line below wants to default to 4 again 
-puts dragon1.eat
-p dragon1.is_hungry
+p dragon1
+
+dragon1.eat(4)
+p dragon1
  
 
 #  Write a Hobbit class
@@ -94,28 +97,31 @@ class Hobbit
     @age = age
     @has_ring = has_ring
       if name == "Frodo"
-        puts true
+        @has_ring = true
       else
-        puts false
+        @has_ring = false
       end
     @is_adult = is_adult
-      if age >= 33
-        puts true
-      else
-        puts false
+      if @age > 32; @is_adult = true
       end
-    end
+    @is_old = is_old
+      if @age > 100
+        @is_old = true
+      else
+        @is_old = false
+      end
+  end
 
   def celebrate_birthday
     new_birthday = @age +1
-    return new_birthday
+    return @age = new_birthday
   end
 end
 
-p hobbit1 = Hobbit.new("Frodo", "adventurous", 32)
-p hobbit1.celebrate_birthday
-# I still can't figure out why this doesn't store as a new variable
-puts hobbit1.is_adult
+hobbit1 = Hobbit.new("Frodo", "adventurous", 32)
+p hobbit1
+# I would expect this to change the age to be 32
 
-
-
+hobbit1.celebrate_birthday
+p hobbit1
+# I would expect this to change the age to 33 here, which it does, but then for is_adult to become true, but this doesn't seem to be happening
