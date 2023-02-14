@@ -89,39 +89,95 @@ p dragon1
 #  it should have an is_old attribute that defaults to false. once a Hobbit is 101, it is old.
 #  it should have a has_ring attribute. If the Hobbit's name is "Frodo", true, if not, false.
 
+## This is the previous version of what I had tried to do. What I've taken away from this is that
+## it is better to keep all class attributes together and if I find myself going to use logic to 
+## put those directly into instance methods
+
+# class Hobbit  
+#   attr_reader :name, :disposition, :age, :is_adult, :is_old
+#   def initialize(name, disposition, age = 0, has_ring = false, is_adult = false, is_old = false)
+#     @name = name
+#     @disposition = disposition
+#     @age = age
+#     @has_ring = has_ring
+#       if name == "Frodo"
+#         @has_ring = true
+#       else
+#         @has_ring = false
+#       end
+#     @is_adult = is_adult
+#       if @age >= 33 
+#         is_adult = true
+#       else
+#         is_adult = false
+#       end
+#     @is_old = is_old
+#       if @age >= 101
+#         @is_old = true
+#       else
+#         @is_old = false
+#       end
+#   end
+
+#   def celebrate_birthday
+#     new_birthday = @age +1
+#       if age >32
+#         is_adult = true
+#       elsif age >100
+#         is_old = true
+#       end
+#     return @age = new_birthday
+#   end
+# end
+
+# hobbit1 = Hobbit.new("Frodo", "adventurous", 32)
+# p hobbit1
+# # I would expect this to change the age to be 32
+# hobbit1.celebrate_birthday
+# p hobbit1
+# # I would expect this to change the age to 33 here, which it does, but then for is_adult to become true, but this doesn't seem to be happening
+# # I would expect the is_adult attribute to change to true
+
+# hobbit2 = Hobbit.new("Steve", "young", 0)
+# p hobbit2
+# hobbit2.celebrate_birthday
+# p hobbit2
+
+# hobbit3 = Hobbit.new("Bob", "wise", 100)
+# p hobbit3
+# hobbit3.celebrate_birthday
+# # I would expect the is_old attribute to change to true
+# p hobbit3
+
 class Hobbit
   attr_reader :name, :disposition, :age, :is_adult, :is_old
-  def initialize(name, disposition, age = 0, has_ring = false, is_adult = false, is_old = false)
+
+  def initialize(name, disposition, age = 0)
     @name = name
     @disposition = disposition
     @age = age
-    @has_ring = has_ring
-      if name == "Frodo"
-        @has_ring = true
-      else
-        @has_ring = false
-      end
-    @is_adult = is_adult
-      if @age > 32; @is_adult = true
-      end
-    @is_old = is_old
-      if @age > 100
-        @is_old = true
-      else
-        @is_old = false
-      end
+    @is_adult = false
+    @is_old = false
   end
 
   def celebrate_birthday
-    new_birthday = @age +1
-    return @age = new_birthday
+    @age = age + 1
+    @is_adult = true if age >= 33
+    @is_old = true if age >= 101
   end
 end
 
 hobbit1 = Hobbit.new("Frodo", "adventurous", 32)
 p hobbit1
-# I would expect this to change the age to be 32
-
 hobbit1.celebrate_birthday
 p hobbit1
-# I would expect this to change the age to 33 here, which it does, but then for is_adult to become true, but this doesn't seem to be happening
+
+hobbit2 = Hobbit.new("Steve", "young", 0)
+p hobbit2
+hobbit2.celebrate_birthday
+p hobbit2
+
+hobbit3 = Hobbit.new("Bob", "wise", 100)
+p hobbit3
+hobbit3.celebrate_birthday
+p hobbit3
